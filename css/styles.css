@@ -116,3 +116,37 @@ ion-icon {
     color: #FFF;
     text-decoration: line-through;
 }
+
+/* Estilo dos botões de filtro*/
+#filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;              
+    margin-top: 20px;       
+    margin-bottom: 25px;   
+}
+
+.filter-btn {
+    background-color: transparent; 
+    border: 2px solid #FFF;       
+    color: #FFF;                
+    padding: 10px 20px;           
+    font-size: 16px;               
+    font-weight: bold;             
+    border-radius: 8px;            
+    cursor: pointer;               
+    transition: all 0.3s ease;     
+}
+
+.filter-btn:hover {
+    background-color: #FFF;        
+    color: #34073D;                
+    transform: translateY(-2px);   
+}
+
+
+.filter-btn.active {
+    background-color: #34073D;     
+    border-color: #34073D;         
+    color: #FFF;                   
+}
