@@ -3,7 +3,6 @@ const addBtn = document.querySelector('#add-btn');
 const filterBtn = document.querySelectorAll('.filter-btn');
 
 // Cria e insere uma nova tarefa na lista com base no input do usuário
-
 function addTask() {
     
     const taskTitle = document.querySelector('#task-title').value;
@@ -28,6 +27,11 @@ function addTask() {
             completeTask(this);
         });
 
+        // Atribuição do duplo clique diretamente no título da nova tarefa
+        newTask.querySelector('.task-title').addEventListener('dblclick', function() {
+            renameTaskTitle(this); 
+        });
+
         // limpa texto do input
         document.querySelector('#task-title').value = "";
     }
@@ -35,7 +39,7 @@ function addTask() {
 
 // Remove a tarefa do DOM a partir do elemento filho acionado
 function removeTask(task) {
-    task.parentNode.remove(true);
+    task.parentNode.remove();
 }
 
 // Alterna o estado de conclusão da tarefa adicionando/removendo a classe de estilo
@@ -94,6 +98,39 @@ function filterTaskCompleted(btn) {
             li.classList.remove('hide');
         }
 
+    });
+}
+
+// Renomeia titulo da tarefa
+function renameTaskTitle(title){
+
+    const renameInput = document.createElement('input');
+    renameInput.value = title.textContent;
+
+    const parentLi = title.parentNode;
+
+    parentLi.replaceChild(renameInput, title);
+
+    // Forçar o cursor a focar dentro do input automaticamente
+    renameInput.focus();
+
+    // O 'blur' é disparado quando o usuário clica fora da caixa de texto (perde o foco), salvando a edição automaticamente
+    renameInput.addEventListener('blur', function(e){
+
+        if (renameInput.parentNode) {
+            title.textContent = renameInput.value;
+            parentLi.replaceChild(title, renameInput);
+        }
+    });
+
+    // O 'keydown' detecta quando qualquer tecla é pressionada
+    renameInput.addEventListener('keydown', function(e){
+        if(e.key == 'Enter'){
+            if (renameInput.parentNode) {
+                title.textContent = renameInput.value;
+                parentLi.replaceChild(title, renameInput);
+            }
+        }
     });
 }
 
